@@ -36,6 +36,9 @@ async def transliterate_lyrics(lyrics: Lyrics):
             out += "\n"
 
         return out
+
+    lyrics.text = lyrics.text.replace(", ", "、")
+    lyrics.text = lyrics.text.replace(",", "、")
     romaji_lyrics = romajify(f"""{lyrics.text.strip()}""")
 
     if lyrics.uri == "spotify:track:2U6mFmBDjaAu6oCCDRpRet":
