@@ -5,3 +5,4 @@ cutlet
 pysbd
 pydantic
 unidic-lite
+psycopg2-binary

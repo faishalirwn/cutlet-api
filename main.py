@@ -40,6 +40,8 @@ async def transliterate_lyrics(lyrics: Lyrics):
 
     if lyrics.uri == "spotify:track:2U6mFmBDjaAu6oCCDRpRet":
         romaji_lyrics = romaji_lyrics.replace("hirakanu", "akanu")
+    elif lyrics.uri == "spotify:track:5j7ixaLeGTGSv4DzKs0pCM":
+        romaji_lyrics = romaji_lyrics.replace("kun", "kimi")
     elif lyrics.uri == "spotify:track:7fKFmrw1RSwU5a9vCwk155":
         romaji_lyrics = romaji_lyrics.replace("Korourai", "Kororon")
         romaji_lyrics = romaji_lyrics.replace("oto", "ne")
