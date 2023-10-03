@@ -1,6 +1,5 @@
 fastapi
 uvicorn
-gunicorn
 cutlet
 pysbd
 pydantic

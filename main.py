@@ -2,17 +2,13 @@ import os
 from fastapi import FastAPI
 from pydantic import BaseModel
 import uvicorn
-
 import cutlet
 import pysbd 
 
 app = FastAPI()
-
-
 class Lyrics(BaseModel):
     uri: str
     text: str
-    
 
 @app.post("/transliterate")
 async def transliterate_lyrics(lyrics: Lyrics):
@@ -20,6 +16,7 @@ async def transliterate_lyrics(lyrics: Lyrics):
     katsu = cutlet.Cutlet()
     katsu.use_foreign_spelling = False
     katsu.add_exception("♪", "♪")
+    katsu.add_exception("私", "watashi")
 
     print(lyrics.uri)
 
