@@ -12,13 +12,9 @@ class Lyrics(BaseModel):
 
 @app.post("/transliterate")
 async def transliterate_lyrics(lyrics: Lyrics):
-    # Code to transliterate the lyrics to romaji
     katsu = cutlet.Cutlet()
     katsu.use_foreign_spelling = False
     katsu.add_exception("♪", "♪")
-    katsu.add_exception("私", "watashi")
-
-    print(lyrics.uri)
 
     senter = pysbd.Segmenter(language="ja", clean=False)
     ZKS = "　" # full width space
@@ -34,14 +30,11 @@ async def transliterate_lyrics(lyrics: Lyrics):
 
         return out
 
-    lyrics.text = lyrics.text.replace(", ", "、")
-    lyrics.text = lyrics.text.replace(",", "、")
-    romaji_lyrics = romajify(f"""{lyrics.text.strip()}""")
+    lyrics.text = lyrics.text.replace(", ", "、").replace(",", "、")
+    romaji_lyrics = romajify(lyrics.text)
 
     if lyrics.uri == "spotify:track:2U6mFmBDjaAu6oCCDRpRet":
         romaji_lyrics = romaji_lyrics.replace("hirakanu", "akanu")
-    elif lyrics.uri == "spotify:track:5j7ixaLeGTGSv4DzKs0pCM":
-        romaji_lyrics = romaji_lyrics.replace("kun", "kimi")
     elif lyrics.uri == "spotify:track:7fKFmrw1RSwU5a9vCwk155":
         romaji_lyrics = romaji_lyrics.replace("Korourai", "Kororon")
         romaji_lyrics = romaji_lyrics.replace("oto", "ne")
