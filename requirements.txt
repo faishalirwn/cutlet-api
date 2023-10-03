@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+gunicorn
+cutlet
+pysbd
+pydantic
+unidic-lite
