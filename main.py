@@ -1,7 +1,5 @@
-import os
 from fastapi import FastAPI
 from pydantic import BaseModel
-import uvicorn
 import cutlet
 import pysbd 
 
@@ -45,11 +43,3 @@ async def transliterate_lyrics(lyrics: Lyrics):
         romaji_lyrics = romaji_lyrics.replace("shounenjou", "shounenba")
 
     return {"romaji": romaji_lyrics}
-
-if __name__ == "__main__":
-    try:
-        port = os.environ.get("PORT", "5000")
-        port = int(port)
-    except ValueError:
-        port = 5000
-    uvicorn.run("main:app", host='0.0.0.0', port=port, log_level="info")
