@@ -1,21 +1,33 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
+from fastapi import Depends, FastAPI, HTTPException
+from sqlalchemy.orm import Session
+from sql_app import crud, models, schemas
+from sql_app.database import SessionLocal, engine
+
 import cutlet
-import pysbd 
+import pysbd
+
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
-class Lyrics(BaseModel):
-    uri: str
-    text: str
 
-@app.post("/transliterate")
-async def transliterate_lyrics(lyrics: Lyrics):
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+@app.post("/api/transliterate", response_model=schemas.Song)
+async def transliterate_lyrics(song: schemas.SongBase, db: Session = Depends(get_db)):
     katsu = cutlet.Cutlet()
     katsu.use_foreign_spelling = False
     katsu.add_exception("♪", "♪")
 
     senter = pysbd.Segmenter(language="ja", clean=False)
-    ZKS = "　" # full width space
+    ZKS = "　"  # full width space
+
     def romajify(text):
         out = ""
         for line in text.split("\n"):
@@ -28,18 +40,21 @@ async def transliterate_lyrics(lyrics: Lyrics):
 
         return out
 
-    lyrics.text = lyrics.text.replace(", ", "、").replace(",", "、")
-    romaji_lyrics = romajify(lyrics.text)
+    tl_lyrics = song.lyrics.replace(", ", "、").replace(",", "、")
+    tl_lyrics = romajify(tl_lyrics)
 
-    if lyrics.uri == "spotify:track:2U6mFmBDjaAu6oCCDRpRet":
-        romaji_lyrics = romaji_lyrics.replace("hirakanu", "akanu")
-    elif lyrics.uri == "spotify:track:7fKFmrw1RSwU5a9vCwk155":
-        romaji_lyrics = romaji_lyrics.replace("Korourai", "Kororon")
-        romaji_lyrics = romaji_lyrics.replace("oto", "ne")
-        romaji_lyrics = romaji_lyrics.replace("1 kai", "ikkai")
-        romaji_lyrics = romaji_lyrics.replace("Suutaryoku", "Kazu amata")
-        romaji_lyrics = romaji_lyrics.replace("kne", "koto")
-        romaji_lyrics = romaji_lyrics.replace("Kneba", "Kotoba")
-        romaji_lyrics = romaji_lyrics.replace("shounenjou", "shounenba")
+    # if song.uri == "spotify:track:2U6mFmBDjaAu6oCCDRpRet":
+    #     tl_lyrics = tl_lyrics.replace("hirakanu", "akanu")
+    # elif song.uri == "spotify:track:7fKFmrw1RSwU5a9vCwk155":
+    #     tl_lyrics = tl_lyrics.replace("Korourai", "Kororon")
+    #     tl_lyrics = tl_lyrics.replace("oto", "ne")
+    #     tl_lyrics = tl_lyrics.replace("1 kai", "ikkai")
+    #     tl_lyrics = tl_lyrics.replace("Suutaryoku", "Kazu amata")
+    #     tl_lyrics = tl_lyrics.replace("kne", "koto")
+    #     tl_lyrics = tl_lyrics.replace("Kneba", "Kotoba")
+    #     tl_lyrics = tl_lyrics.replace("shounenjou", "shounenba")
 
-    return {"romaji": romaji_lyrics}
+    db_song = crud.get_song_by_uri(db, uri=song.uri)
+    if db_song:
+        raise HTTPException(status_code=400, detail="Song already registered")
+    return crud.create_song(db=db, song=song, tl_lyrics=tl_lyrics)
