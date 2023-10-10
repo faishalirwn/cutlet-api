@@ -21,6 +21,11 @@ def get_db():
 
 @app.post("/api/transliterate", response_model=schemas.Song)
 async def transliterate_lyrics(song: schemas.SongBase, db: Session = Depends(get_db)):
+    db_song = crud.get_song_by_uri(db, uri=song.uri)
+    if db_song:
+        return db_song
+        # raise HTTPException(status_code=400, detail="Song already registered")
+
     katsu = cutlet.Cutlet()
     katsu.use_foreign_spelling = False
     katsu.add_exception("♪", "♪")
@@ -53,8 +58,5 @@ async def transliterate_lyrics(song: schemas.SongBase, db: Session = Depends(get
     #     tl_lyrics = tl_lyrics.replace("kne", "koto")
     #     tl_lyrics = tl_lyrics.replace("Kneba", "Kotoba")
     #     tl_lyrics = tl_lyrics.replace("shounenjou", "shounenba")
-
-    db_song = crud.get_song_by_uri(db, uri=song.uri)
-    if db_song:
-        raise HTTPException(status_code=400, detail="Song already registered")
+    #
     return crud.create_song(db=db, song=song, tl_lyrics=tl_lyrics)
