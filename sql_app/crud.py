@@ -19,6 +19,7 @@ def create_song(db: Session, song: schemas.SongCreate, tl_lyrics: str):
     db_song = models.Song(
         uri=song.uri,
         lyrics=song.lyrics,
+        source=song.source,
         transliterated_lyrics=tl_lyrics,
     )
     db.add(db_song)

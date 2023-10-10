@@ -12,4 +12,5 @@ class Song(Base):
     uri = Column(String, unique=True, index=True)
     lyrics = Column(String)
     transliterated_lyrics = Column(String)
+    source = Column(String)
     fetch_time = Column(DateTime(timezone=True), server_default=func.now())

@@ -7,6 +7,7 @@ from pydantic import BaseModel
 class SongBase(BaseModel):
     uri: str
     lyrics: str
+    source: str
 
 
 class SongCreate(SongBase):
