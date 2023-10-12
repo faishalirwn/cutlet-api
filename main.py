@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 import cutlet
 import pysbd
-import json
+import urllib.request, json 
 
 app = FastAPI()
 
@@ -38,10 +38,10 @@ async def transliterate_lyrics(song: Song):
     tl_lyrics = song.lyrics.replace(", ", "、").replace(",", "、")
     tl_lyrics = romajify(tl_lyrics)
 
-    with open("corrections.json") as f:
-        d = json.load(f)
-        if song.uri in d and song.provider in d[song.uri]:
-            for correction in d[song.uri][song.provider]:
+    with urllib.request.urlopen("https://raw.githubusercontent.com/faishalirwn/cutlet-api/main/corrections.json") as url:
+        data = json.load(url)
+        if song.uri in data and song.provider in data[song.uri]:
+            for correction in data[song.uri][song.provider]:
                 tl_lyrics = tl_lyrics.replace(correction[0], correction[1])
 
     return tl_lyrics
