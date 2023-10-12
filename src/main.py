@@ -40,8 +40,10 @@ async def transliterate_lyrics(song: Song):
 
     with urllib.request.urlopen("https://raw.githubusercontent.com/faishalirwn/cutlet-api/main/corrections.json") as url:
         data = json.load(url)
-        if song.uri in data and song.provider in data[song.uri]:
-            for correction in data[song.uri][song.provider]:
+        print("Logs:", song.uri, song.provider)
+        if song.uri in data[song.provider]:
+            print("Exist")
+            for correction in data[song.provider][song.uri]:
                 tl_lyrics = tl_lyrics.replace(correction[0], correction[1])
 
     return tl_lyrics
