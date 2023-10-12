@@ -36,7 +36,9 @@ async def transliterate_lyrics(song: Song):
         return out
 
     tl_lyrics = song.lyrics.replace(", ", "、").replace(",", "、")
-    tl_lyrics = song.lyrics.replace("watakushi", "watashi")
+    tl_lyrics = song.lyrics.replace("watakushi", "watashi").replace("Watakushi", "Watashi")
+    tl_lyrics = song.lyrics.replace("1 tsu", "hitotsu").replace("1tsu", "hitotsu").replace("2 tsu", "futatsu").replace("2tsu", "futatsu")
+    tl_lyrics = song.lyrics.replace("1 byou", "ichibyou").replace("1byou", "ichibyou")
     tl_lyrics = romajify(tl_lyrics)
 
     with urllib.request.urlopen("https://raw.githubusercontent.com/faishalirwn/cutlet-api/main/corrections.json") as url:
