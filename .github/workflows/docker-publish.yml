@@ -4,7 +4,7 @@ on:
     push:
         branches: [ "main" ]
         paths:
-            - 'folder1/**'
+            - 'src/**'
             - '.github/workflows/**'
 
 env:
