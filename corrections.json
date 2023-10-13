@@ -37,8 +37,9 @@
       ["L am", "I am"],
       ["L'm", "I'm"],
       ["nan", "nani"],
-      ["Nan", "Nan"],
-      ["ikou", "yukou"]
+      ["Nan", "Nani"],
+      ["ikou", "yukou"],
+      ["hikeru", "hajikeru"]
     ]
   }
 }
