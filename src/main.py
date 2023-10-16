@@ -11,7 +11,6 @@ app = FastAPI()
 class Song(BaseModel):
     uri: str
     lyrics: str
-    provider: str
 
 
 @app.post("/api/transliterate")
@@ -43,10 +42,10 @@ async def transliterate_lyrics(song: Song):
 
     with urllib.request.urlopen("https://raw.githubusercontent.com/faishalirwn/cutlet-api/main/corrections.json") as url:
         data = json.load(url)
-        print("Logs:", song.uri, song.provider)
-        if song.uri in data[song.provider]:
+        print("Logs:", song.uri)
+        if song.uri in data:
             print("Exist")
-            for correction in data[song.provider][song.uri]:
+            for correction in data[song.uri]:
                 tl_lyrics = tl_lyrics.replace(correction[0], correction[1])
 
     return tl_lyrics

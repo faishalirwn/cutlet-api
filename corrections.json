@@ -1,45 +1,26 @@
 {
-  "musixmatch": {
-    "2U6mFmBDjaAu6oCCDRpRet": [["hirakanu", "akanu"]],
-    "7fKFmrw1RSwU5a9vCwk155": [
-      ["Korourai", "Kororon"],
-      ["oto", "ne"],
-      ["1 kai", "ikkai"],
-      ["Suutaryoku", "Kazu amata"],
-      ["kne", "koto"],
-      ["Kneba", "Kotoba"],
-      ["shounenjou", "shounenba"]
-    ],
-    "5sPKAEb7afrIMtdqEnI6H6": [
-      ["Ji tokidoki", "Tokidokidoki"],
-      ["Jijiu", "Tokidoki ame"],
-      ["ji ni", "toki ni"]
-    ]
-  },
-  "netease": {
-    "2U6mFmBDjaAu6oCCDRpRet": [["hirakanu", "akanu"]],
-    "7fKFmrw1RSwU5a9vCwk155": [
-      ["Korourai", "Kororon"],
-      ["oto", "ne"],
-      ["1 kai", "ikkai"],
-      ["Suutaryoku", "Kazu amata"],
-      ["kne", "koto"],
-      ["Kneba", "Kotoba"],
-      ["shounenjou", "shounenba"]
-    ],
-    "5sPKAEb7afrIMtdqEnI6H6": [
-      ["Ji tokidoki", "Tokidokidoki"],
-      ["Jijiu", "Tokidoki ame"],
-      ["ji ni", "toki ni"]
-    ],
-    "5j7ixaLeGTGSv4DzKs0pCM": [["shourai nan", "shourai nani"]],
-    "0UFmgncRMHavVzYxtpF0IZ": [
-      ["L am", "I am"],
-      ["L'm", "I'm"],
-      ["nan", "nani"],
-      ["Nan", "Nani"],
-      ["ikou", "yukou"],
-      ["hikeru", "hajikeru"]
-    ]
-  }
+  "2U6mFmBDjaAu6oCCDRpRet": [["hirakanu", "akanu"]],
+  "7fKFmrw1RSwU5a9vCwk155": [
+    ["Korourai", "Kororon"],
+    ["oto", "ne"],
+    ["1 kai", "ikkai"],
+    ["Suutaryoku", "Kazu amata"],
+    ["kne", "koto"],
+    ["Kneba", "Kotoba"],
+    ["shounenjou", "shounenba"]
+  ],
+  "5sPKAEb7afrIMtdqEnI6H6": [
+    ["Ji tokidoki", "Tokidokidoki"],
+    ["Jijiu", "Tokidoki ame"],
+    ["ji ni", "toki ni"]
+  ],
+  "5j7ixaLeGTGSv4DzKs0pCM": [["shourai nan", "shourai nani"]],
+  "0UFmgncRMHavVzYxtpF0IZ": [
+    ["L am", "I am"],
+    ["L'm", "I'm"],
+    ["nan", "nani"],
+    ["Nan", "Nani"],
+    ["ikou", "yukou"],
+    ["hikeru", "hajikeru"]
+  ]
 }
